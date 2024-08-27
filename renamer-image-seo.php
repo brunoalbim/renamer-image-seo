@@ -2,7 +2,7 @@
 /*
 Plugin Name: Renamer Image SEO
 Description: Renomeia as imagens enviadas para incluir o nome e a descrição do site, além de otimizar o texto alternativo.
-Version: 0.1.6
+Version: 0.1.7
 Author: Bruno A
 */
 
@@ -24,8 +24,9 @@ function custom_image_renamer($file) {
     // Remove acentos e caracteres especiais do nome do arquivo para otimização SEO
     $name = remove_accents($name);
 
-    // Remove caracteres não otimizados para SEO e converte para minúsculas
-    $name = strtolower(preg_replace('/[^a-zA-Z0-9\s]/', '', $name));
+    // Remove caracteres não otimizados para SEO, permitindo hífens, e converte para minúsculas
+    $name = str_replace(' ', '-', $name);
+    $name = strtolower(preg_replace('/[^a-zA-Z0-9s-]/', '', $name));
     $name = sanitize_title($name);
 
     // Adiciona o nome e a descrição do site ao final do nome do arquivo
@@ -54,7 +55,7 @@ function custom_image_alt_text($post_ID) {
     // Adiciona o nome do site e a descrição ao alt text
     $site_name = get_bloginfo('name');
     $site_description = get_bloginfo('description');
-    $alt_text = $original_name . ' - ' . $site_name . ' - ' . $site_description;
+    $alt_text = str_replace('-', ' ', $original_name) . ' - ' . $site_name . ' - ' . $site_description;
     
     // Atualiza o alt text da imagem
     update_post_meta($post_ID, '_wp_attachment_image_alt', $alt_text);
