@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Renamer Image SEO
+Plugin Name: WP Renamer Image SEO
 Description: Renomeia as imagens enviadas para incluir o nome e a descrição do site, além de otimizar o texto alternativo.
 Version: 0.1.8
 Author: Bruno A
