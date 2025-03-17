@@ -2,11 +2,16 @@
 /*
 Plugin Name: WP Renamer Image SEO
 Description: Renomeia as imagens enviadas para incluir o nome e a descrição do site, além de otimizar o texto alternativo.
-Version: 0.1.9
+Version: 0.1.10
 Author: Bruno A
 */
 
 function custom_image_renamer($file) {
+    // Evita o renomeio de arquivos .zip
+    if (strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)) === 'zip') {
+        return $file;
+    }
+
     $site_name = get_bloginfo('name');
     $site_description = get_bloginfo('description');
     
